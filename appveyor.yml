@@ -126,5 +126,5 @@ test_script:
   - cd ..
   - mkdir tmp_test
   - cd tmp_test
-  - python -c \"import wrf\""
+  - python -c "import wrf"
 
