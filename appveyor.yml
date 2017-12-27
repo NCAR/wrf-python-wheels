@@ -1,9 +1,10 @@
 environment:
   global:
       BUILD_COMMIT: develop
+      BUILD_DEPENDS: numpy
+      TEST_DEPENDS: numpy wrapt
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-      NUMPY_TEST_DEP: numpy==1.13.1
       #WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       #WHEELHOUSE_UPLOADER_SECRET:
       #  secure:
@@ -13,42 +14,34 @@ environment:
     - PYTHON: C:\Python36
       PYTHON_VERSION: 3.6
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.12.1
 
     - PYTHON: C:\Python36-x64
       PYTHON_VERSION: 3.6
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.12.1
 
     - PYTHON: C:\Python35
       PYTHON_VERSION: 3.5
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.10.4
 
     - PYTHON: C:\Python35-x64
       PYTHON_VERSION: 3.5
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.10.4
 
     - PYTHON: C:\Python34
       PYTHON_VERSION: 3.4
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.10.4
 
     - PYTHON: C:\Python34-x64
       PYTHON_VERSION: 3.4
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.10.4
 
     - PYTHON: C:\Python27
       PYTHON_VERSION: 2.7
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.10.4
 
     - PYTHON: C:\Python27-x64
       PYTHON_VERSION: 2.7
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.10.4
 
 init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
@@ -82,7 +75,7 @@ install:
   - pip install "wheel==0.26"
 
   # Install build requirements.
-  - pip install "%NUMPY_BUILD_DEP%"
+  - pip install --only-binary numpy %BUILD_DEPENDS%
 
   # Replace numpy distutils with a version that can build with msvc + mingw-gfortran.
   - ps: |
@@ -113,11 +106,8 @@ build_script:
       }
 
 before_test:
-  # Install test requirements.
-  - python -m pip install wrapt
-
-  # Upgrade numpy to the version used for testing
-  - python -m pip install "%NUMPY_TEST_DEP%"
+  # Install runtime/test requirements.
+  - python -m pip install %TEST_DEPENDS%
 
 test_script:
   - cd ..
