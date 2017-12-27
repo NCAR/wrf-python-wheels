@@ -1,10 +1,43 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
 
-function pre_build {
-    # Any stuff that you need to do before you start building the wheels
-    # Runs in the root directory of this repository.
-    :
+# Enable Python fault handler on Pythons >= 3.3.
+PYTHONFAULTHANDLER=1
+
+source gfortran-install/gfortran_utils.sh
+
+function build_wheel {
+    if [ -z "$IS_OSX" ]; then
+        build_pip_wheel $@
+    else
+        build_osx_wheel $@
+    fi
+}
+
+function set_arch {
+    local arch=$1
+    export CC="clang $arch"
+    export CXX="clang++ $arch"
+    export CFLAGS="$arch"
+    export FFLAGS="$arch"
+    export FARCH="$arch"
+    export LDFLAGS="$arch"
+}
+
+function build_osx_wheel {
+    # Build 64-bit wheel
+    # Standard gfortran won't build dual arch objects.
+    local repo_dir=${1:-$REPO_DIR}
+    local py_ld_flags="-Wall -undefined dynamic_lookup -bundle"
+
+    install_gfortran
+    # 64-bit wheel
+    local arch="-m64"
+    set_arch $arch
+    # Build wheel
+    export LDSHARED="$CC $py_ld_flags"
+    export LDFLAGS="$arch $py_ld_flags"
+    build_pip_wheel "$repo_dir"
 }
 
 function run_tests {
