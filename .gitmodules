@@ -4,3 +4,6 @@
 [submodule "wrf-python"]
 	path = wrf-python
 	url = https://github.com/NCAR/wrf-python
+[submodule "numpy-distutils"]
+	path = numpy-distutils
+	url = https://github.com/numpy/numpy.git
