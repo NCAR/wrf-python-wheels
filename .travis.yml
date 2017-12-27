@@ -1,7 +1,7 @@
 env:
   global:
       - REPO_DIR=wrf-python
-      - BUILD_COMMIT=1.0.5
+      - BUILD_COMMIT=develop
       - PLAT=x86_64
       - UNICODE_WIDTH=32
       # pip dependencies to _build_ your project

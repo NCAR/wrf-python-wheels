@@ -1,5 +1,6 @@
 environment:
   global:
+      BUILD_COMMIT: develop
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       NUMPY_TEST_DEP: numpy==1.13.1
@@ -7,7 +8,6 @@ environment:
       #WHEELHOUSE_UPLOADER_SECRET:
       #  secure:
       #      jIyaD+VWmTlDGXThsKAkiLq8iljgYHiriq+kEUuW9tHj67R5BapLxLjbfco2nt8Y
-      BUILD_COMMIT: 1.0.5
 
   matrix:
     - PYTHON: C:\Python36
