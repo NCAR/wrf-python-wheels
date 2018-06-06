@@ -3,7 +3,7 @@
 	url = https://github.com/matthew-brett/multibuild.git
 [submodule "wrf-python"]
 	path = wrf-python
-	url = https://github.com/NCAR/wrf-python
+	url = https://github.com/letmaik/wrf-python
 [submodule "numpy-distutils"]
 	path = numpy-distutils
 	url = https://github.com/numpy/numpy.git

@@ -1,6 +1,6 @@
 environment:
   global:
-      BUILD_COMMIT: develop
+      BUILD_COMMIT: letmaik/wheel
       TEST_DEPENDS: numpy==1.13.1 wrapt
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
