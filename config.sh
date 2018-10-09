@@ -1,15 +1,15 @@
 # Define custom utilities
 # Test for OSX with [ -n "$IS_OSX" ]
-
-# Enable Python fault handler on Pythons >= 3.3.
-PYTHONFAULTHANDLER=1
-
+# See env_vars.sh for extra environment variables
 source gfortran-install/gfortran_utils.sh
 
 function build_wheel {
     if [ -z "$IS_OSX" ]; then
+        unset FFLAGS
+        export LDFLAGS="-shared -Wl,-strip-all"
         build_pip_wheel $@
     else
+        export FFLAGS="$FFLAGS -fPIC"
         build_osx_wheel $@
     fi
 }

@@ -10,6 +10,18 @@ environment:
       #      jIyaD+VWmTlDGXThsKAkiLq8iljgYHiriq+kEUuW9tHj67R5BapLxLjbfco2nt8Y
 
   matrix:
+    - PYTHON: C:\Python37
+      PYTHON_VERSION: 3.7
+      PYTHON_ARCH: 32
+      NUMPY_BUILD_DEP: numpy==1.14.5
+      TEST_DEPENDS: numpy==1.14.5 wrapt
+
+    - PYTHON: C:\Python37-x64
+      PYTHON_VERSION: 3.7
+      PYTHON_ARCH: 64
+      NUMPY_BUILD_DEP: numpy==1.14.5
+      TEST_DEPENDS: numpy==1.14.5 wrapt
+
     - PYTHON: C:\Python36
       PYTHON_VERSION: 3.6
       PYTHON_ARCH: 32
@@ -61,6 +73,11 @@ install:
   - echo "Installed SDKs:"
   - dir "C:/Program Files/Microsoft SDKs/Windows"
 
+  - git submodule update --init
+
+  # Install new Python if necessary
+  - ps: .\multibuild\install_python.ps1
+
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
@@ -75,11 +92,8 @@ install:
   # Get needed submodules
   - git submodule update --init --recursive
 
-  # Upgrade to the latest pip and setuptools.
-  - python -m pip install -U pip setuptools
-
-  # Pin wheel to 0.26 to avoid Windows ABI tag for built wheel
-  - pip install "wheel==0.26"
+  # Upgrade to the latest pip, setuptools, and wheel.
+  - python -m pip install -U pip setuptools wheel
 
   # Install build requirements.
   - pip install --only-binary numpy "%NUMPY_BUILD_DEP%"
@@ -95,6 +109,7 @@ install:
 build_script:
   - cd wrf-python
   - git checkout %BUILD_COMMIT%
+  # TODO copy OpenMP DLLs or disable support
   # Build wheel using setup.py
   - ps: |
       $PYTHON_ARCH = $env:PYTHON_ARCH
