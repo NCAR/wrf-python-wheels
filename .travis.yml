@@ -1,11 +1,11 @@
 env:
   global:
       - REPO_DIR=wrf-python
-      - BUILD_COMMIT=letmaik/wheel
+      - BUILD_COMMIT=master
       - PLAT=x86_64
       - UNICODE_WIDTH=32
-      - NP_BUILD_DEP="numpy==1.8.2"
-      - NP_TEST_DEP="numpy==1.8.2"
+      - NP_BUILD_DEP="numpy==1.13.3"
+      - NP_TEST_DEP="numpy==1.13.3"
       #- WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       # Following generated with
       # travis encrypt -r MacPython/astropy-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
@@ -27,88 +27,31 @@ matrix:
   include:
     - os: linux
       env:
-        - MB_PYTHON_VERSION=2.7
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - PLAT=i686
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - PLAT=i686
-        - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        # Python 3.4 needs more recent numpy (for testing only)
-        - NP_TEST_DEP=numpy==1.9.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - PLAT=i686
-        - NP_TEST_DEP=numpy==1.9.3
-    - os: linux
-      env:
         - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
+        - NP_BUILD_DEP=numpy==1.13.3
+        - NP_TEST_DEP=numpy==1.13.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.6
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        - NP_BUILD_DEP=numpy==1.13.3
+        - NP_TEST_DEP=numpy==1.13.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP=numpy==1.14.5
         - NP_TEST_DEP=numpy==1.14.5
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.7
-        - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=2.7
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.9.3
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.5
-        # OSX build of scipy on Python 3.5 needs built 1.8.2 wheel to avoid
-        # https://github.com/numpy/numpy/issues/6204.  numpy 1.8.2 wheel for
-        # Python 3.5 at nipy manylinux URL.
-        - NP_BUILD_DEP=numpy==1.8.2
-        - NP_TEST_DEP=numpy==1.9.3
+        - NP_BUILD_DEP=numpy==1.13.3
+        - NP_TEST_DEP=numpy==1.13.3
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.6
-        - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        - NP_BUILD_DEP=numpy==1.13.3
+        - NP_TEST_DEP=numpy==1.13.3
     - os: osx
       language: generic
       env:
@@ -118,7 +61,7 @@ matrix:
 
 before_install:
     - BUILD_DEPENDS="$NP_BUILD_DEP"
-    - TEST_DEPENDS="$NP_TEST_DEP wrapt"
+    - TEST_DEPENDS="$NP_TEST_DEP netCDF4 xarray"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install

@@ -1,7 +1,7 @@
 environment:
   global:
-      BUILD_COMMIT: letmaik/wheel
-      TEST_DEPENDS: numpy==1.13.1 wrapt
+      BUILD_COMMIT: master
+      TEST_DEPENDS: numpy==1.13.3 netCDF4 xarray
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
       #WHEELHOUSE_UPLOADER_USERNAME: travis-worker
@@ -14,53 +14,33 @@ environment:
       PYTHON_VERSION: 3.7
       PYTHON_ARCH: 32
       NUMPY_BUILD_DEP: numpy==1.14.5
-      TEST_DEPENDS: numpy==1.14.5 wrapt
+      TEST_DEPENDS: numpy==1.14.5 netCDF4 xarray
 
     - PYTHON: C:\Python37-x64
       PYTHON_VERSION: 3.7
       PYTHON_ARCH: 64
       NUMPY_BUILD_DEP: numpy==1.14.5
-      TEST_DEPENDS: numpy==1.14.5 wrapt
+      TEST_DEPENDS: numpy==1.14.5 netCDF4 xarray
 
     - PYTHON: C:\Python36
       PYTHON_VERSION: 3.6
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.12.1
+      NUMPY_BUILD_DEP: numpy==1.13.3
 
     - PYTHON: C:\Python36-x64
       PYTHON_VERSION: 3.6
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.12.1
+      NUMPY_BUILD_DEP: numpy==1.13.3
 
     - PYTHON: C:\Python35
       PYTHON_VERSION: 3.5
       PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.10.4
+      NUMPY_BUILD_DEP: numpy==1.13.3
 
     - PYTHON: C:\Python35-x64
       PYTHON_VERSION: 3.5
       PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.10.4
-
-    - PYTHON: C:\Python34
-      PYTHON_VERSION: 3.4
-      PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.10.4
-
-    - PYTHON: C:\Python34-x64
-      PYTHON_VERSION: 3.4
-      PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.10.4
-
-    - PYTHON: C:\Python27
-      PYTHON_VERSION: 2.7
-      PYTHON_ARCH: 32
-      NUMPY_BUILD_DEP: numpy==1.10.4
-
-    - PYTHON: C:\Python27-x64
-      PYTHON_VERSION: 2.7
-      PYTHON_ARCH: 64
-      NUMPY_BUILD_DEP: numpy==1.10.4
+      NUMPY_BUILD_DEP: numpy==1.13.3
 
 init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
@@ -108,8 +88,7 @@ install:
 
 build_script:
   - cd wrf-python
-  - git checkout %BUILD_COMMIT%
-  # TODO copy OpenMP DLLs or disable support
+  - git checkout %BUILD_COMMIT% 
   # Build wheel using setup.py
   - ps: |
       $PYTHON_ARCH = $env:PYTHON_ARCH
@@ -132,8 +111,7 @@ before_test:
   - python -m pip install %TEST_DEPENDS%
 
 test_script:
-  - cd ..
-  - mkdir tmp_test
-  - cd tmp_test
+  - cd test/ci_tests
   - python -c "import wrf"
+  - python utests.py
 
