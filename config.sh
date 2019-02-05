@@ -16,9 +16,8 @@ function pre_build {
 
 function build_wheel {
     export FFLAGS="-fPIC -fopenmp -mtune=generic"
-    export LDFLAGS="-fPIC -fopenmp"
     if [ -z "$IS_OSX" ]; then
-        export LDFLAGS="$LDFLAGS -shared -Wl,-strip-all"
+        export LDFLAGS="-fPIC -fopenmp -shared -Wl,-strip-all"
         build_pip_wheel $@
     else
         build_osx_wheel $@
@@ -32,7 +31,6 @@ function set_arch {
     export CFLAGS="$CFLAGS $arch"
     export FFLAGS="$FFLAGS $arch"
     export FARCH="$arch"
-    export LDFLAGS="$LDFLAGS $arch"
 }
 
 function build_osx_wheel {
@@ -46,7 +44,6 @@ function build_osx_wheel {
     local arch="-m64"
     set_arch $arch
     # Build wheel
-    #export FFLAGS="$FFLAGS -fPIC"
     export LDSHARED="$CC $py_ld_flags"
     export LDFLAGS="$arch $py_ld_flags"
     build_pip_wheel "$repo_dir"
