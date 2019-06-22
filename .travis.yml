@@ -7,6 +7,7 @@ env:
       - NP_BUILD_DEP="numpy==1.13.3"
       - NP_TEST_DEP="numpy==1.13.3"
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+      - CONTAINER=pre-release
       # Following generated with
       # travis encrypt -r NCAR/wrf-python-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure:

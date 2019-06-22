@@ -4,6 +4,7 @@ environment:
       TEST_DEPENDS: numpy==1.13.3 netCDF4 xarray
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
+      CONTAINER: pre-release
       #WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       #WHEELHOUSE_UPLOADER_SECRET:
       #  secure:
@@ -114,4 +115,11 @@ test_script:
   - cd test/ci_tests
   - python -c "import wrf"
   - python utests.py
+  - cd ../..
 
+#on_success:
+#  # Upload the generated wheel package to Rackspace
+#  - pip install wheelhouse-uploader
+#  - python -m wheelhouse_uploader upload
+#    --local-folder=dist
+#    %CONTAINER%
