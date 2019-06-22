@@ -7,13 +7,13 @@ We automate wheel building using this custom github repository
 the travis-ci OSX machines, travis-ci Linux machines, and the Appveyor VMs.
 
 The travis-ci interface for the builds is
-https://travis-ci.org/letmaik/wrf-python-wheels
+https://travis-ci.org/NCAR/wrf-python-wheels
 
 Appveyor interface at
-https://ci.appveyor.com/project/letmaik/wrf-python-wheels
+https://ci.appveyor.com/project/NCAR/wrf-python-wheels
 
 The driving github repository is
-https://github.com/letmaik/wrf-python-wheels
+https://github.com/NCAR/wrf-python-wheels
 
 How it works
 ============
@@ -25,14 +25,14 @@ The wheel-building repository:
   (Manylinux1_).  ``delocate`` and ``auditwheel`` copy the required dynamic
   libraries into the wheel and relinks the extension modules against the
   copied libraries;
-* TODO [uploads the built wheels to http://wheels.scipy.org (a Rackspace container
+* [uploads the built wheels to http://wheels.scipy.org (a Rackspace container
   kindly donated by Rackspace to scikit-learn).]
 
 The resulting wheels are therefore self-contained and do not need any external
 dynamic libraries apart from those provided as standard by OSX / Linux as
 defined by the manylinux1 standard.
 
-TODO [The ``.travis.yml`` file in this repository has a line containing the API key
+[The ``.travis.yml`` file in this repository has a line containing the API key
 for the Rackspace container encrypted with an RSA key that is unique to the
 repository - see http://docs.travis-ci.com/user/encryption-keys.  This
 encrypted key gives the travis build permission to upload to the Rackspace
@@ -69,8 +69,6 @@ hash.
 
 Uploading the built wheels to pypi
 ==================================
-
-TODO
 
 Be careful, http://wheels.scipy.org points to a container on a distributed
 content delivery network.  It can take up to 15 minutes for the new wheel file
