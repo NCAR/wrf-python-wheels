@@ -6,11 +6,11 @@ env:
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.13.3"
       - NP_TEST_DEP="numpy==1.13.3"
-      #- WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+      - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       # Following generated with
       # travis encrypt -r NCAR/wrf-python-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
-      #- secure:
-      #    "MNKyBWOzu7JAUmC0Y+JhPKfytXxY/ADRmUIMEWZV977FLZPgYctqd+lqel2QIFgdHDO1CIdTSymOOFZckM9ICUXg9Ta+8oBjSvAVWO1ahDcToRM2DLq66fKg+NKimd2OfK7x597h/QmUSl4k8XyvyyXgl5jOiLg/EJxNE2r83IA="
+      - secure:
+          "fNvIDX3uzB8nB5IQIDM3rVjl1amVg1pIcv4V0Qr5UQGYqjiTE62fP1VASY67fyEZ2pjoa3TYnRFM9kIv9LnuFjlJu0GYSS3pmKsRQAhMe+6LRG/wNUmuyoXuGx3pgsgPd9a/EYaWA2tfa9NwaRQoW0EhRYPT/78/lMEUpxRTY3itYMeG4uEUmNllXv4O78MldWJY0H5d/Mwos5BxGyDpirIJrWjH07HrgwQZwd8WtWxoDpyRQMxUuWTGfVm901k7w7usGoUjC3JwO1JA4gI0x7imjlPbWZf/+CwkfLHt+hrrmcXGhkPR7R3f/PjZJNW2BEPQ1uxP73kEv+LcM9HZUUEug5JF71TtDeLc6HHx9MQlnhUKO31tbwSxAMKLPNeOAGz/wgD7qOae4vF970OroL7dvk5VeJUWjmM7gEpNBYbdlywsoQ787FMN2YI2BxRT2vc0X8AYppPpqKYxpvV3VdaPd0kVG4NppyDehVt7R2aQilidGoyBAe3U1++rAvAEJlQHNFXcFs9DszjWvPUykyMP3zhosw3RXsYlv7ID02odU+cYd0yzmnkcWC5iE6x+l+dveCzKc5J8PrBnpg7ybLtC9DB60swN6spfyH/mP1t0MJfQ9cxeyNTNv0B681GiJ3BOWLxa98QKShhp+DHHv3Gsl/wbWnugLvKBw2/TvDQ="
 
 language: python
 # The travis Python version is unrelated to the version we build and test
@@ -74,10 +74,10 @@ install:
 script:
     - install_run $PLAT
 
-#after_success:
+after_success:
     # Upload wheels to Rackspace container
-    #- pip install wheelhouse-uploader
-    #- python -m wheelhouse_uploader upload --local-folder
-    #      ${TRAVIS_BUILD_DIR}/wheelhouse/
-    #      --no-update-index
-    #      wheels
+    - pip install wheelhouse-uploader
+    - python -m wheelhouse_uploader upload --local-folder
+          ${TRAVIS_BUILD_DIR}/wheelhouse/
+          --no-update-index
+          wheels
