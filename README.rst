@@ -25,7 +25,7 @@ The wheel-building repository:
   (Manylinux1_).  ``delocate`` and ``auditwheel`` copy the required dynamic
   libraries into the wheel and relinks the extension modules against the
   copied libraries;
-* uploads the built wheels to http://wheels.scipy.org (a Rackspace container
+* uploads the built wheels to https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com (a Rackspace container
   kindly donated by Rackspace to scikit-learn).
 
 The resulting wheels are therefore self-contained and do not need any external
@@ -36,7 +36,7 @@ The ``.travis.yml`` file in this repository has a line containing the API key
 for the Rackspace container encrypted with an RSA key that is unique to the
 repository - see http://docs.travis-ci.com/user/encryption-keys.  This
 encrypted key gives the travis build permission to upload to the Rackspace
-directory pointed to by http://wheels.scipy.org.
+directory pointed to by https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com.
 
 Triggering a build
 ==================
@@ -58,13 +58,10 @@ hash.
 Uploading the built wheels to pypi
 ==================================
 
-Be careful, http://wheels.scipy.org points to a container on a distributed
+Be careful, https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com
+points to a container on a distributed
 content delivery network.  It can take up to 15 minutes for the new wheel file
-to get updated into the container at http://wheels.scipy.org.
-
-The same contents appear at
-https://7933911d6844c6c53a7d-47bd50c35cd79bd838daf386af554a83.ssl.cf2.rackcdn.com;
-you might prefer this address because it is https.
+to get updated into the container.
 
 When the wheels are updated, you can download them to your machine manually,
 and then upload them manually to pypi, or by using twine_.  You can also use a
