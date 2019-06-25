@@ -25,45 +25,33 @@ The wheel-building repository:
   (Manylinux1_).  ``delocate`` and ``auditwheel`` copy the required dynamic
   libraries into the wheel and relinks the extension modules against the
   copied libraries;
-* [uploads the built wheels to http://wheels.scipy.org (a Rackspace container
-  kindly donated by Rackspace to scikit-learn).]
+* uploads the built wheels to http://wheels.scipy.org (a Rackspace container
+  kindly donated by Rackspace to scikit-learn).
 
 The resulting wheels are therefore self-contained and do not need any external
 dynamic libraries apart from those provided as standard by OSX / Linux as
 defined by the manylinux1 standard.
 
-[The ``.travis.yml`` file in this repository has a line containing the API key
+The ``.travis.yml`` file in this repository has a line containing the API key
 for the Rackspace container encrypted with an RSA key that is unique to the
 repository - see http://docs.travis-ci.com/user/encryption-keys.  This
 encrypted key gives the travis build permission to upload to the Rackspace
-directory pointed to by http://wheels.scipy.org.]
+directory pointed to by http://wheels.scipy.org.
 
 Triggering a build
 ==================
 
-You will likely want to edit the ``.travis.yml`` and ``appveyor.yml`` files to
-specify the ``BUILD_COMMIT`` before triggering a build - see below.
+Edit the `BUILD_COMMIT` file with the new git tag or branch to build,
+commit and push. This will trigger builds and upload the wheels to Rackspace.
 
-You will need write permission to the github repository to trigger new builds
-on the travis-ci interface.
-
-You can trigger a build by:
-
-* making a commit to the `wrf-python-wheels` repository (e.g. with `git
-  commit --allow-empty`); or
-* clicking on the circular arrow icon towards the top right of the travis-ci
-  page, to rerun the previous build.
-
-In general, it is better to trigger a build with a commit, because this makes
-a new set of build products and logs, keeping the old ones for reference.
-Keeping the old build logs helps us keep track of previous problems and
-successful builds.
+If you don't want to change the `BUILD_COMMIT` file but still trigger new builds
+then make an empty commit with `git commit --allow-empty`.
 
 Which wrf-python commit does the repository build?
 ===============================================
 
 The `wrf-python-wheels` repository will build the commit specified in the
-``BUILD_COMMIT`` at the top of the ``.travis.yml`` and ``appveyor.yml`` files.
+``BUILD_COMMIT`` file.
 This can be any naming of a commit, including branch name, tag name or commit
 hash.
 
