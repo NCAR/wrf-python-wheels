@@ -41,16 +41,16 @@ directory pointed to by http://wheels.scipy.org.
 Triggering a build
 ==================
 
-Edit the `BUILD_COMMIT` file with the new git tag or branch to build,
+Edit the ``BUILD_COMMIT`` file with the new git tag or branch to build,
 commit and push. This will trigger builds and upload the wheels to Rackspace.
 
-If you don't want to change the `BUILD_COMMIT` file but still trigger new builds
-then make an empty commit with `git commit --allow-empty`.
+If you don't want to change the ``BUILD_COMMIT`` file but still trigger new builds
+then make an empty commit with ``git commit --allow-empty``.
 
 Which wrf-python commit does the repository build?
 ===============================================
 
-The `wrf-python-wheels` repository will build the commit specified in the
+The ``wrf-python-wheels`` repository will build the commit specified in the
 ``BUILD_COMMIT`` file.
 This can be any naming of a commit, including branch name, tag name or commit
 hash.
