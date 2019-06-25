@@ -49,8 +49,8 @@ init:
 
 install:
   - set /p BUILD_COMMIT=<BUILD_COMMIT
-  - echo "Build commit: %BUILD_COMMIT%"
-  
+  - 'echo "Build commit: %BUILD_COMMIT%"'
+
   - cmd: echo "Filesystem root:"
   - dir C:\
 
