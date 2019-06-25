@@ -1,7 +1,6 @@
 env:
   global:
       - REPO_DIR=wrf-python
-      - BUILD_COMMIT=master
       - PLAT=x86_64
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.13.3"
@@ -63,6 +62,8 @@ matrix:
         - NP_TEST_DEP=numpy==1.14.5
 
 before_install:
+    - BUILD_COMMIT=$(<BUILD_COMMIT)
+    - echo "Build commit: $BUILD_COMMIT"
     - BUILD_DEPENDS="$NP_BUILD_DEP"
     - TEST_DEPENDS="$NP_TEST_DEP netCDF4 xarray"
     - source multibuild/common_utils.sh
