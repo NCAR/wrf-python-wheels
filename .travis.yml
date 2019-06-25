@@ -7,7 +7,9 @@ env:
       - NP_BUILD_DEP="numpy==1.13.3"
       - NP_TEST_DEP="numpy==1.13.3"
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
-      - CONTAINER=pre-release
+      - CONTAINER=pre-release # or "wheels" for release container
+      # --no-upload-index only required for "wheels" container
+      #- UPLOAD_ARGS=--no-update-index
       # Following generated with
       # travis encrypt -r NCAR/wrf-python-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure:
@@ -80,5 +82,5 @@ after_success:
     - pip install wheelhouse-uploader
     - python -m wheelhouse_uploader upload --local-folder
           ${TRAVIS_BUILD_DIR}/wheelhouse/
-          --no-update-index
-          wheels
+          $UPLOAD_ARGS
+          $CONTAINER
