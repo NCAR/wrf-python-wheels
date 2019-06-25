@@ -4,7 +4,9 @@ environment:
       TEST_DEPENDS: numpy==1.13.3 netCDF4 xarray
       MINGW_32: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
       MINGW_64: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
-      CONTAINER: pre-release
+      CONTAINER: pre-release # or "wheels" for release container
+      # --no-upload-index only required for "wheels" container
+      #UPLOAD_ARGS: --no-update-index
       WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       WHEELHOUSE_UPLOADER_SECRET:
         secure: Ub43W+S4r9Jz42dh0wiSpOwOvkgLHdprAA/32tP0Ua8LbHIKEe+BIM4SbexwJ862
@@ -116,9 +118,10 @@ test_script:
   - python utests.py
   - cd ../..
 
-#on_success:
-#  # Upload the generated wheel package to Rackspace
-#  - pip install wheelhouse-uploader
-#  - python -m wheelhouse_uploader upload
-#    --local-folder=dist
-#    %CONTAINER%
+on_success:
+  # Upload the generated wheel package to Rackspace
+  - pip install wheelhouse-uploader
+  - python -m wheelhouse_uploader upload
+    --local-folder=dist
+    %UPLOAD_ARGS%
+    %CONTAINER%
